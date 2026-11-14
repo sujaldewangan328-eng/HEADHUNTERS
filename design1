@@ -1,0 +1,97 @@
+import { createFileRoute } from "@tanstack/react-router";
+
+import heroFlame from "@/assets/microgravity-flame.jpg";
+import { Badge } from "@/components/ui/badge";
+import { ExperimentRanking } from "@/components/dashboard/experiment-ranking";
+import { FlameSimulator } from "@/components/dashboard/flame-simulator";
+import { HabitatRadar } from "@/components/dashboard/habitat-radar";
+import { KpiCards } from "@/components/dashboard/kpi-cards";
+import { MissionHeader } from "@/components/dashboard/mission-header";
+import { SiAssistant } from "@/components/dashboard/si-assistant";
+import { SpreadChart } from "@/components/dashboard/spread-chart";
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Flame in Freefall — Microgravity Fire Safety Dashboard" },
+      {
+        name: "description",
+        content:
+          "SI-powered dashboard that ranks and interprets NASA microgravity combustion experiments for human space exploration fire safety.",
+      },
+      { property: "og:title", content: "Flame in Freefall — Microgravity Fire Safety Dashboard" },
+      {
+        property: "og:description",
+        content: "Explore how flames behave in space and get fire-safety insights for the Moon and Mars.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Dashboard,
+});
+
+function Dashboard() {
+  return (
+    <div className="relative min-h-screen">
+      <div className="starfield pointer-events-none fixed inset-0 opacity-50" aria-hidden />
+      <main className="relative mx-auto max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+        <MissionHeader />
+
+        <section className="panel relative overflow-hidden">
+          <img
+            src={heroFlame}
+            alt="Spherical blue flame burning in microgravity"
+            width={1536}
+            height={768}
+            className="absolute inset-0 h-full w-full object-cover opacity-70 md:left-1/3 md:w-2/3"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-transparent" />
+          <div className="relative max-w-2xl p-6 sm:p-8">
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="plasma">Space Exploration</Badge>
+              <Badge variant="alert">Advanced</Badge>
+              <Badge variant="ember">Intermediate</Badge>
+            </div>
+            <h1 className="mt-4 text-3xl font-bold leading-tight sm:text-4xl">
+              <span className="text-gradient-title">Fire behaves differently</span>
+              <br />
+              when there's no "up".
+            </h1>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Decades of NASA microgravity combustion research — summarised, ranked and interpreted by
+              super intelligence to keep crews safe on the way back to the Moon and on to Mars.
+            </p>
+          </div>
+        </section>
+
+        <KpiCards />
+
+        <div className="grid gap-5 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <FlameSimulator />
+          </div>
+          <div className="lg:col-span-4">
+            <SiAssistant />
+          </div>
+        </div>
+
+        <div className="grid gap-5 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <SpreadChart />
+          </div>
+          <div className="lg:col-span-5">
+            <HabitatRadar />
+          </div>
+        </div>
+
+        <ExperimentRanking />
+
+        <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-panel-border pt-5 font-mono text-xs text-muted-foreground">
+          <span>Flame in Freefall · 2026 NASA Space Apps Challenge</span>
+          <span>Sample data for demonstration</span>
+        </footer>
+      </main>
+    </div>
+  );
+}
